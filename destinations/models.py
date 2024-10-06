@@ -5,7 +5,8 @@ from django.utils.text import slugify
 # Category class - for the different category like "Beach", "Mountain", "City", etc.
 class Category(BaseModel):
     category_name = models.CharField(max_length=100)
-    category_img = models.models.ImageField(upload_to="catagories")
+    category_img = models.ImageField(upload_to="catagories")
+    slug = models.SlugField(unique=True, null=True,blank=True)
     description = models.TextField(blank=True, null=True)
     def save(self,*args,**kwargs):
         self.slug = slugify(self.category_name)
@@ -17,6 +18,7 @@ class Category(BaseModel):
 class Destination(BaseModel):
     destination_name = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True, null=True,blank=True)
     description = models.TextField()
     image = models.ImageField(upload_to="destinations")
     rating = models.FloatField(default=0.0)
