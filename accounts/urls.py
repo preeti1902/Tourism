@@ -3,5 +3,7 @@ from django.urls import path
 from accounts.views import login_page
 
 urlpatterns = [
-    path('login/',login_page,name="login")
+    path('user/',login_page,name="login_signup")
 ]
+
+# Yet to fix the url
