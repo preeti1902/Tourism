@@ -191,7 +191,8 @@
 {% block body %}
 <div class="login_container">
   <div class="form-box">
-    <form class="LoginForm" method="POST">
+    <!-- Login Form -->
+    <form class="LoginForm" method="POST" action="{% url 'login' %}">
       {% csrf_token %}
       {% include "base/alert.html" %}
       <h2>Login</h2>
@@ -212,11 +213,12 @@
       <div class="account-creation">
         <span
           >Don't have an account ?
-          <a href="#" class="RegisterLink">Register</a></span
-        >
+          <a href="#" class="RegisterLink">Register</a></span>
       </div>
     </form>
-    <form class="RegisterForm" method="POST">
+
+    <!-- Register Form -->
+    <form class="RegisterForm" method="POST" action="{% url 'register' %}">
       {% csrf_token %}
       {% include "base/alert.html" %}
       <h2>Register</h2>
@@ -239,8 +241,7 @@
       <div class="account-creation">
         <span
           >Already have an account ?
-          <a href="#" class="LoginLink">Login</a></span
-        >
+          <a href="#" class="LoginLink">Login</a></span>
       </div>
     </form>
   </div>
@@ -251,6 +252,7 @@
   const RegisterForm = document.querySelector(".RegisterForm");
   const RegisterLink = document.querySelector(".RegisterLink");
   const LoginLink = document.querySelector(".LoginLink");
+
   RegisterLink.onclick = () => {
     RegisterForm.classList.add("active");
     LoginForm.classList.add("active");
