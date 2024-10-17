@@ -13,9 +13,9 @@ def login(request):
 
         user = authenticate(request, username=email, password=password)
         if user is not None:
-            login(request, user)
+            login(request)
             messages.success(request, 'You are logged in!')
-            return HttpResponseRedirect('/')  
+            return HttpResponseRedirect(request.path_info)  
         else:
             messages.error(request, 'Invalid email or password.')
 
@@ -42,3 +42,7 @@ def register(request):
         return HttpResponseRedirect(request.path_info)
 
     return render(request, 'accounts/login_signup.html')
+
+def forgot_Password(request):
+    return render(request, 'accounts/forgotpassword.html')
+    
