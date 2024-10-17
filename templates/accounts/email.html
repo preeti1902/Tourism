@@ -1,0 +1,153 @@
+
+{% extends "base/base.html" %} 
+{% block head %}
+<style>
+/* Container Styling */
+.email-container {
+  margin: 200px auto 100px;
+  height: 550px;
+  width: 500px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-box {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Heading Styling */
+.email-container .form-box h2 {
+  text-align: center;
+  font-size: 28px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: black;
+}
+
+/* Input Box Styling */
+.form-box .input-box {
+  margin: 25px 0;
+  width: 330px;
+  position: relative;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.form-box .input-box input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 40px;
+  padding: 0 35px 0 5px;
+  color: black; /* Text color for input */
+}
+
+.form-box .input-box label {
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  transition: 0.5s ease;
+  color: black;
+}
+
+/* Label Animation on Focus */
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+  top: -5px;
+  font-size: 12px;
+  color: #11999e;
+}
+
+.input-box i {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #fff;
+}
+
+/* Button Styling */
+.link_btn {
+  height: 45px;
+  width: 100%;
+  border-radius: 50px;
+  color: #fff;
+  background: #11595d;
+  border: 2px solid #0c4345;
+  outline: none;
+  font-size: 16px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  margin-top: 10px;
+  
+}
+
+.link_link_btn:hover {
+  background: #0c4345;
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 365px) {
+  .reset-container {
+    height: 420px;
+    width: 280px;
+  }
+
+  .reset-container .form-box h2 {
+    font-size: 22px;
+  }
+
+  .form-box .input-box {
+    margin: 20px 0;
+    width: 220px;
+  }
+
+  .form-box .input-box label {
+    font-size: 12px;
+  }
+
+  .link_btn {
+    height: 35px;
+    font-size: 12px;
+  }
+}
+</style>
+{% endblock head %}
+
+{% block body %}
+<div class="email-container">
+  <div class="form-box">
+    <!-- Password reset form -->
+    <form class="EmailForm" method="POST">
+      {% csrf_token %}
+      {% include "base/alert.html" %}
+      <h2>Reset Password</h2>
+      <div class="input-box">
+        <input name="email" type="text" required />
+        <label> Email</label>
+      </div>
+      <button type="button" class="link_btn link_btn-primary">Send Link</button>
+    </form>
+  </div>
+</div>
+
+<script>
+</script>
+{% endblock %}

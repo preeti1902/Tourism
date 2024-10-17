@@ -45,4 +45,10 @@ def register(request):
 
 def forgot_Password(request):
     return render(request, 'accounts/forgotpassword.html')
+
+
+def send_email_link(request):
+    return render(request, 'accounts/email.html')
+    
+
     
