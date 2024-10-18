@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-q2oum(lsmqh^)g$iy=s16qpi)y&!*733z8t759plem&-s=*qfa
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -135,3 +135,16 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Authentication settings
+LOGIN_URL = 'login'  # Set the login URL
+LOGOUT_URL = 'logout'  # Set the logout URL
+LOGOUT_REDIRECT_URL = '/'  # Redirect to the home page after logout
+
+# Email Credentials
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'rahulmondal779@gmail.com'
+EMAIL_HOST_PASSWORD = 'rxzzhpqvtskyktcp' # must add it in a .env file as it's a secret key
