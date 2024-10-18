@@ -6,40 +6,47 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 
-def login(request):
+def login_page(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
+        
+        user = User.objects.filter(username=email)
 
-        user = authenticate(request, username=email, password=password)
-        if user is not None:
-            login(request)
-            messages.success(request, 'You are logged in!')
-            return HttpResponseRedirect(request.path_info)  
-        else:
-            messages.error(request, 'Invalid email or password.')
+        if not user.exists():
+            messages.warning(request, "Account not found")
+            return HttpResponseRedirect(request.path_info)
+        
+        user = user[0]
 
+        user = authenticate(username=email, password=password)
+
+        if user:
+                login(request, user)
+                return HttpResponseRedirect('/')
+        messages.warning(request, "Invalid Credentials")
+        return HttpResponseRedirect(request.path_info)
     return render(request, 'accounts/login_signup.html')
 
-def register(request):
+def register_page(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
+        user = User.objects.filter(username = email)
 
-        if password != confirm_password:
-            messages.error(request, "Passwords do not match.")
-            return HttpResponseRedirect(request.path_info)
-
-        if User.objects.filter(username=email).exists():
+        if user.exists():
             messages.warning(request, 'Email is already taken.')
             return HttpResponseRedirect(request.path_info)
 
-        user_obj = User.objects.create_user(username=email, email=email, password=password)
-        user_obj.save()
+        print(email)
+
+        user = User.objects.create_user(username=email, email=email)
+        user.set_password(password)
+        user.save()
 
         messages.success(request, 'Registration successful. You can now log in.')
-        return HttpResponseRedirect(request.path_info)
+        return HttpResponseRedirect('login')
 
     return render(request, 'accounts/login_signup.html')
 
