@@ -141,10 +141,12 @@ LOGIN_URL = 'login'  # Set the login URL
 LOGOUT_URL = 'logout'  # Set the logout URL
 LOGOUT_REDIRECT_URL = '/'  # Redirect to the home page after logout
 
+from dotenv import load_dotenv
+load_dotenv()
 # Email Credentials
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'rahulmondal779@gmail.com'
-EMAIL_HOST_PASSWORD = 'rxzzhpqvtskyktcp' # must add it in a .env file as it's a secret key
+EMAIL_HOST_USER = os.getenv('USER')
+EMAIL_HOST_PASSWORD = os.getenv('PASSWORD')

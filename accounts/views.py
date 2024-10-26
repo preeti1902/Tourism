@@ -67,7 +67,6 @@ def forgot_Password_page(request):
     try:
         if request.method == 'POST':
             email = request.POST.get('email')
-            print(email)
             if not User.objects.filter(email=email).first():
                 messages.error(request, 'User Not Found')
                 return redirect('/forgot-password-page')
