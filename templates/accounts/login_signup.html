@@ -1,6 +1,6 @@
 {% extends "base/base.html" %} {% block head %}
 <style>
-  .login_container, .register_container{
+  .acc_container{
     margin-top: 200px;
     margin-bottom: 100px;
     height: 450px;
@@ -15,10 +15,6 @@
     padding: 20px;
     overflow: hidden;
     margin-left: 35%;
-  }
-
-  .register_container{
-    height: 500px;
   }
 
   .form-box {
@@ -195,7 +191,7 @@
 
 {% endblock head %} 
 {% block body %}
-<div class="login_container">
+<div class="acc_container">
   <div class="form-box">
     <!-- Login Form -->
     <form class="LoginForm {% if request.path == '/accounts/login/' %}active{% endif %}" method="POST" action="{% url 'login' %}">
