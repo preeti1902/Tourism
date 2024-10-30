@@ -1,58 +1,79 @@
 {% extends "base/base.html" %} {% block head %}
 <style>
-  .login_container {
+  .login_container, .register_container{
     margin-top: 200px;
     margin-bottom: 100px;
-    height: 550px;
-    width: 500px;
-    border: 2px solid rgba(255, 255, 255, 0.4);
+    height: 450px;
+    width: 450px;
+    border: 2px solid rgba(158, 143, 143, 0.63);
     border-radius: 10px;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(224, 217, 217, 0.786);
     backdrop-filter: blur(4px);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 0, 0, 0.2),
-      0 0 30px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 0, 0, 0.2);
+    display: inherit;
+    position: relative;
+    padding: 20px;
     overflow: hidden;
-    margin-left: 32%;
+    margin-left: 35%;
+  }
+
+  .register_container{
+    height: 500px;
   }
 
   .form-box {
     display: flex;
+    position: relative;
   }
 
-  .form-box .LoginForm {
+  /* Base style for both forms */
+  .form-box form {
     position: absolute;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+
+/* Active Login Form: translate and rotate */
+.form-box .LoginForm {
     transform: translateX(0px) rotate(0deg);
-    transition: 0.5s ease;
-    transition-delay: 0.4s;
   }
 
   .form-box .LoginForm.active {
-    /* position:absolute; */
-    transform: translateX(-450px) rotate(-45deg);
-    transition-delay: 0.2s;
-  }
-
-  .form-box .RegisterForm {
-    transform: translateX(450px) rotate(60deg);
-    transition: 0.5s ease;
-    transition-delay: 0.2s;
-  }
-
-  .form-box .RegisterForm.active {
-    transform: translateX(0px) rotate(0deg);
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0) rotate(0deg);
     transition-delay: 0.4s;
   }
 
-  .container .form-box h2 {
-    text-align: center;
-    font-size: 38px;
-    letter-spacing: 1px;
-    font-weight: 600;
+  /* Inactive Login Form */
+  .form-box .LoginForm.inactive {
+    transform: translateX(-450px) rotate(-45deg);
+    opacity: 0;
+    transition-delay: 0.2s;
   }
 
+  /* Active Register Form */
+  .form-box .RegisterForm {
+    transform: translateX(450px) rotate(60deg);
+  }
+
+  .form-box .RegisterForm.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0) rotate(0deg);
+    transition-delay: 0.4s;
+  }
+
+  /* Inactive Register Form */
+  .form-box .RegisterForm.inactive {
+    transform: translateX(450px) rotate(60deg);
+    opacity: 0;
+    transition-delay: 0.2s;
+  }
+
+  /* Style for input boxes and labels */
   .form-box .input-box {
     margin: 35px 0;
     width: 330px;
@@ -100,20 +121,6 @@
     margin: -15px 0 15px;
   }
 
-  .forget-section p {
-    display: flex;
-    align-items: center;
-  }
-
-  .forget-section p input {
-    accent-color: #11595d;
-    margin: 0 3px;
-  }
-
-  .forget-section a {
-    text-decoration: none;
-  }
-
   .acc_btn {
     height: 45px;
     width: 100%;
@@ -144,7 +151,7 @@
 
   /* RESPONSIVE */
   @media (max-width: 365px) {
-    .container {
+    .login_container {
       height: 420px;
       width: 280px;
     }
@@ -183,26 +190,25 @@
     .account-creation {
       font-size: 11px;
     }
-
-
   }
 </style>
+
 {% endblock head %} 
 {% block body %}
 <div class="login_container">
   <div class="form-box">
     <!-- Login Form -->
-    <form class="LoginForm" method="POST" action="{% url 'login' %}">
+    <form class="LoginForm {% if request.path == '/accounts/login/' %}active{% endif %}" method="POST" action="{% url 'login' %}">
       {% csrf_token %}
       {% include "base/alert.html" %}
       <h2>Login</h2>
       <div class="input-box">
         <input name="email" type="text" required />
-        <label> Email</label>
+        <label>Email</label>
         <i class="bx bxs-user"></i>
       </div>
       <div class="input-box">
-        <input name="password" type="Password" required />
+        <input name="password" type="password" required />
         <label>Password</label>
         <i class="bx bxs-lock-alt"></i>
       </div>
@@ -211,35 +217,33 @@
       </div>
       <button class="acc_btn">Sign in</button>
       <div class="account-creation">
-        <span>Don't have an account ?<a href="#" class="RegisterLink">Register</a></span>
+        <span>Don't have an account? <a href="{% url 'register' %}" class="RegisterLink">Register</a></span>
       </div>
     </form>
 
     <!-- Register Form -->
-    <form class="RegisterForm" method="POST" action="{% url 'register' %}">
+    <form class="RegisterForm {% if request.path == '/accounts/register/' %}active{% endif %}" method="POST" action="{% url 'register' %}">
       {% csrf_token %}
       {% include "base/alert.html" %}
       <h2>Register</h2>
       <div class="input-box">
         <input name="email" type="text" required />
-        <label> Email</label>
+        <label>Email</label>
         <i class="bx bxs-user"></i>
       </div>
       <div class="input-box">
-        <input name="password" type="Password" required />
+        <input name="password" type="password" required />
         <label>Password</label>
         <i class="bx bxs-lock-alt"></i>
       </div>
       <div class="input-box">
-        <input name="confirm_password" type="Password" required />
+        <input name="confirm_password" type="password" required />
         <label>Confirm Password</label>
         <i class="bx bxs-lock-alt"></i>
       </div>
       <button class="acc_btn">Sign up</button>
       <div class="account-creation">
-        <span
-          >Already have an account ?
-          <a href="#" class="LoginLink">Login</a></span>
+        <span>Already have an account? <a href="{% url 'login' %}" class="LoginLink">Login</a></span>
       </div>
     </form>
   </div>
@@ -251,14 +255,23 @@
   const RegisterLink = document.querySelector(".RegisterLink");
   const LoginLink = document.querySelector(".LoginLink");
 
-  RegisterLink.onclick = () => {
+  RegisterLink.onclick = (event) => {
+    event.preventDefault();
+    LoginForm.classList.remove("active");
+    LoginForm.classList.add("inactive");
+    RegisterForm.classList.remove("inactive");
     RegisterForm.classList.add("active");
+  };
+
+  LoginLink.onclick = (event) => {
+    event.preventDefault();
+    RegisterForm.classList.remove("active");
+    RegisterForm.classList.add("inactive");
+    LoginForm.classList.remove("inactive");
     LoginForm.classList.add("active");
   };
-  LoginLink.onclick = () => {
-    RegisterForm.classList.remove("active");
-    LoginForm.classList.remove("active");
-  };
 </script>
+
+
 
 {% endblock %}

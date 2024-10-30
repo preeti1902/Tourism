@@ -121,11 +121,17 @@ html {
   scroll-behavior: smooth;
 }
 
-body { background: var(--white); }
-
-
-
-
+body{
+  background-image: url("/media/images/hero-banner.jpg");
+  background-blend-mode: overlay;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: hsla(0, 0%, 0%, 0.7);
+  display: grid;
+  min-height: 600px;
+  text-align: center;
+}
 
 /*-----------------------------------*\
  * #REUSED STYLE
