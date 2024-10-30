@@ -1,1 +1,10 @@
 .env
+*.pyc
+accounts/__pycache__/
+accounts/migrations/__pycache__/
+base/__pycache__/
+destinations/__pycache__/
+destinations/migrations/__pycache__/
+home/__pycache__/
+home/migrations/__pycache__/
+tourism/__pycache__/
