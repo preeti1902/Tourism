@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def load_destinations(request):
+    return render(request, 'destination/destinations.html')
