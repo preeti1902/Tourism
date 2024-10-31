@@ -121,11 +121,17 @@ html {
   scroll-behavior: smooth;
 }
 
-body { background: var(--white); }
-
-
-
-
+body{
+  background-image: url("/media/images/hero-banner.jpg");
+  background-blend-mode: overlay;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: hsla(0, 0%, 0%, 0.7);
+  display: grid;
+  min-height: 600px;
+  text-align: center;
+}
 
 /*-----------------------------------*\
  * #REUSED STYLE
@@ -676,7 +682,10 @@ body { background: var(--white); }
   padding-block: var(--section-padding);
 }
 
-.cta :is(.section-subtitle, .section-title, .section-text) { color: var(--white); }
+.cta :is(.section-subtitle, .section-title, .section-text) { 
+  color: var(--white); 
+  margin-left: 250px;
+}
 
 .cta .section-text { font-size: var(--fs-5); }
 
@@ -703,6 +712,7 @@ body { background: var(--white); }
 .footer-text {
   font-size: var(--fs-5);
   line-height: 1.7;
+  margin-left: -65px;
 }
 
 .footer-contact { margin-bottom: 30px; }
@@ -718,7 +728,7 @@ body { background: var(--white); }
   content: "";
   position: absolute;
   bottom: -10px;
-  left: 0;
+  left: 50px;
   width: 50px;
   height: 2px;
   background: var(--bright-navy-blue);
@@ -727,7 +737,6 @@ body { background: var(--white); }
 .contact-text {
   font-size: var(--fs-5);
   margin-bottom: 15px;
-  max-width: 200px;
 }
 
 .contact-item {
@@ -752,6 +761,7 @@ address {
 .form-text {
   font-size: var(--fs-5);
   margin-bottom: 20px;
+  margin-left: 75px;
 }
 
 .footer-form .input-field {
@@ -872,6 +882,7 @@ address {
   .btn {
     --fs-5: 16px;
     --padding: 12px 30px;
+    margin-right: -100px;
   }
 
   section:not(.cta) :is(.section-subtitle, .section-title, .section-text) {
@@ -1003,7 +1014,6 @@ address {
   .container { max-width: 800px; }
 
   .section-text {
-    max-width: 60ch;
     margin-inline: auto;
   }
 
@@ -1100,7 +1110,7 @@ address {
 
   .cta-content { width: calc(100% - 225px); }
 
-  .cta .section-text { margin-inline: 0; }
+  
 
 
 
@@ -1115,7 +1125,10 @@ address {
     gap: 20px;
   }
 
-  .footer-form .input-field { margin-bottom: 0; }
+  .footer-form .input-field { 
+    margin-bottom: 0;
+    margin-right: -100px;
+  }
 
   .footer-form .btn { width: max-content; }
 
@@ -1242,7 +1255,7 @@ address {
    * CTA 
    */
 
-  .cta .section-title { max-width: 25ch; }
+  .cta .section-title { max-width: 35ch; }
 
 
 
@@ -1252,7 +1265,7 @@ address {
 
   .footer-top .container {
     grid-template-columns: repeat(3, 1fr);
-    gap: 50px;
+    gap: 165px;
   }
 
   .footer-form { grid-column: unset; }
