@@ -50,5 +50,5 @@ class Review(BaseModel):
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
-    # def __str__(self):
-    #     return f'Review by {self.user.username} on {self.destination.name}'
+    def __str__(self):
+        return f'Review by {self.user.username} on {self.destination.name}'
