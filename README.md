@@ -52,11 +52,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-If there is no `requirements.txt` file yet, you can generate one by running:
-
-```bash
-pip freeze > requirements.txt
-```
 
 ### 3. **Set Up the Database**
 
@@ -106,9 +101,53 @@ Here's a brief overview of the project structure:
 
 ```text
 .
-├── destinations/           # Main app containing views, models, etc.
-├── tourism_website/        # Main Django project settings and configurations
-├── manage.py               # Django's command-line utility
-├── requirements.txt        # Python dependencies (if available)
-└── templates/              # HTML templates for the front-end
+├── accounts/                   # Handles authentication: login, registration, password reset
+│   ├── models.py
+│   ├── views.py
+│   └── urls.py
+├── base/                        # Base folder for shared resources and utilities
+│   ├── models.py                # Shared abstract models (e.g., timestamped model)
+│   ├── utils.py                 # Helper functions
+│   └── views.py                 # Shared base views (mixins, generic views)
+├── bookings/                    # Handles booking logic
+│   ├── models.py
+│   ├── views.py
+│   └── urls.py
+├── destinations/                # Handles destinations details
+│   ├── models.py
+│   ├── views.py
+│   └── urls.py
+├── home/                        # Homepage and other general site views
+│   ├── views.py
+│   └── urls.py
+├── packages/                    # Travel packages logic
+│   ├── models.py
+│   ├── views.py
+│   └── urls.py
+├── reviews/                     # Handles review and rating functionality
+│   ├── models.py
+│   ├── views.py
+│   └── urls.py
+├── public/                      # Static and media files
+│   ├── static/                  # Static files (CSS, JS)
+│   │   ├── css/
+│   │   ├── js/
+│   │   └── images/
+│   └── media/                   # User-uploaded media files
+├── templates/                   # Centralized HTML templates for the entire site
+│   ├── base/                    # Shared base templates like base.html
+│   ├── accounts/                # Templates for accounts app (login.html, signup.html, etc.)
+│   ├── bookings/                # Templates for booking-related views
+│   ├── destinations/            # Templates for destination-related views
+│   ├── home/                    # Homepage templates
+│   ├── packages/                # Templates for package-related views
+│   └── reviews/                 # Templates for review-related views
+├── tourism/                     # Main Django project configuration
+│   ├── settings/                # Split settings files 
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── asgi.py
+├── manage.py                    # Django's command-line utility
+├── requirements.txt             # Python dependencies
+└── README.md                    # Project documentation
 ```
