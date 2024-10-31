@@ -130,7 +130,6 @@ body{
   background-color: hsla(0, 0%, 0%, 0.7);
   display: grid;
   min-height: 600px;
-  text-align: center;
 }
 
 /*-----------------------------------*\
@@ -147,6 +146,7 @@ body{
   padding: var(--padding, 8px 18px);
   border: var(--border-width, 2px) solid transparent;
   transition: var(--transition);
+  text-align: center;
 }
 
 .btn-primary {
@@ -493,9 +493,10 @@ body{
 
 
 .popular-card .card-rating {
-  background: var(--bright-navy-blue);
-  color: var(--white);
+  background: #3B79C9;
+  color: gold;
   position: absolute;
+  border: black 1px solid;
   top: 0;
   right: 25px;
   display: flex;

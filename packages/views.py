@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def package_page(request):
+    return render(request, 'packages/package.html')
