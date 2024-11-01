@@ -22,10 +22,10 @@
     ul{
         margin-bottom:  0 !important;
     }
+
     .dest_container{
     margin-top: 170px;
     margin-bottom: 50px;
-    height: 1000px;
     width: 98%;
     border: 2px solid rgba(158, 143, 143, 0.63);
     border-radius: 10px;
@@ -38,6 +38,48 @@
     overflow: hidden;
     left: 15px;
     }
+
+    .img-fit {
+        margin-top: 20px;
+        object-fit: cover; 
+        object-position:top;
+        width: 100%; 
+        height: 100%; 
+        max-height: 400px; 
+        border-radius: 10px; 
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .gallery{
+        padding-block: 10px !important;
+    }
+
+    .gallery .img-fit{
+        margin-top: 5px;
+        object-fit: fill;
+        max-height: 250px;
+        max-width: 260px;
+    }
+
+    .about{
+        margin-top: 5px;
+    }
+
+    .location{
+        margin-top: 5px;
+    }
+
+    .category{
+        margin-top: 5px;
+    }
+
+    .rating{
+        margin-top: 5px;
+    }
+
+    .card{
+        margin-top: 40px !important; 
+    }
 </style>
 {% endblock %}
 
@@ -45,16 +87,20 @@
     <div class="dest_container">
         <div class="row">
             <div class="col-md-8">
-                <h1 class="display-4"> destination_name </h1>
-                <p class="text-muted"> location </p>
-                <img src="#" class="img-fluid rounded" alt=" destination_name ">
+                <h1 class="display-4"> {{destination.destination_name}} </h1>
+                <p class="text-muted"> {{destination.location}} </p>
+                <img src="/media/{{destination.gallery.all.1.image}}" class="img-fit" alt="">
             </div>
             <div class="col-md-4">
                 <div class="card p-3 shadow-sm">
                     <h2 class="card-title">Book Your Visit</h2>
-                    <p class="lead text-success">{{ price | default:"$200" }} per person</p>
-                    <form action="#" method="POST">
+                    <p class="lead text-success">{{destination.price}}&#8377; per person</p>
+                    <form action="#" method="POST" class="mt-2">
                         {% csrf_token %}
+                        <div class="form-group">
+                            <label for="date">Select Date</label>
+                            <input type="date" id="date" name="date" class="form-control" required>
+                        </div>
                         <div class="form-group">
                             <label for="date">Select Date</label>
                             <input type="date" id="date" name="date" class="form-control" required>
@@ -69,29 +115,29 @@
             </div>
         </div>
     
-
-        <div class="row mt-4">
-            <div class="col-md-8">
-                <h3>About </h3>
-                <p>{{ description | default:"A beautiful historical site with rich cultural heritage and mesmerizing architecture." }}</p>
-                <h4>Location</h4>
-                <p>{{ location | default:"Agra, India" }}</p>
-                
-                <h4>Rating</h4>
-                <p>{{ rating | default:"4.5" }} / 5</p>
-                <h4>Categories</h4>
-                <p>{{ category | default:"Historical, Cultural" }}</p>
+        <div class="row">
+            <div class="col-md-4 mt-4">
+                <div class="col-md-12">
+                    <h3 class="about">About </h3>
+                    <p>{{destination.description}}</p>
+                    <h4 class="location" >Location</h4>
+                    <p>{{destination.location}}</p>
+                    <h4 class="rating">Rating</h4>
+                    <p>{{destination.rating}} / 5</p>
+                    <h4 class="category">Categories</h4>
+                    <p>{{destination.category}}</p>
+                </div>
             </div>
-        </div>
-    
-        <div class="row mt-4">
-            <div class="col-12">
-                <h3>Gallery</h3>
-                <div class="gallery d-flex flex-wrap">
-                    <img src="#" class="img-thumbnail m-1" alt="image 1">
-                    <img src="#" class="img-thumbnail m-1" alt="image 2">
-                    <img src="#" class="img-thumbnail m-1" alt="image 3">
-                    
+        
+            <div class="col-md-8 mt-4">
+                <div class="col-12">
+                    <h3>Gallery</h3>
+                    <div class="gallery d-flex flex-wrap">
+                        <img src="/media/{{destination.gallery.all.1.image}}" class="img-thumbnail m-1 img-fit" alt="image 1">
+                        <img src="/media/{{destination.gallery.all.2.image}}" class="img-thumbnail m-1 img-fit" alt="image 2">
+                        <img src="/media/{{destination.gallery.all.3.image}}" class="img-thumbnail m-1 img-fit" alt="image 3">
+                        
+                    </div>
                 </div>
             </div>
         </div>

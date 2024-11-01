@@ -6,5 +6,8 @@ def destinations(request):
     return render(request, 'destination/destinations.html',context)
 
 def get_destination(request, slug):
-    context = {'destination': Destination}
-    return render(request,'destination/destination.html',context)
+    try:
+        destination = Destination.objects.get(slug=slug)
+        return render(request,'destination/destination.html',context = {'destination':destination})
+    except Exception as e:
+        print(e)
