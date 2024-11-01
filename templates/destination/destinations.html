@@ -42,7 +42,7 @@
           <div class="popular-card">
 
             <figure class="card-img">
-              <img src="/media/{{destination.image}}" alt="San miguel, italy" loading="lazy">
+              <img src="/media/{{destination.gallery.first.image}}" alt="San miguel, italy" loading="lazy">
             </figure>
 
             <div class="card-content">
@@ -57,11 +57,11 @@
               </div>
 
               <p class="card-subtitle">
-                <a href="#">{{destination.location}}</a>
+                <a href="{% url 'get_destination' destination.slug %}">{{destination.location}}</a>
               </p>
 
               <h3 class="h3 card-title">
-                <a href="#">{{destination.destination_name}}</a>
+                <a href="{% url 'get_destination' destination.slug %}">{{destination.destination_name}}</a>
               </h3>
 
               <p class="card-text">

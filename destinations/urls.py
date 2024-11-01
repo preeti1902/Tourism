@@ -1,6 +1,7 @@
 from django.urls import path 
-from destinations.views import load_destinations
+from destinations.views import destinations,get_destination
 
 urlpatterns = [
-    path('destinations/',load_destinations,name="load_destinations")
+    path('destinations/',destinations,name="load_destinations"),
+    path('<slug>/',get_destination,name='get_destination')
 ]

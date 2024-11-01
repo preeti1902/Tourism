@@ -1,0 +1,104 @@
+{% extends "base/base.html" %} 
+
+{% block head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<style>
+    html{
+        line-height: 0 !important;
+    }
+
+    body{
+    font-family: var(--ff-poppins);
+    }
+
+    p{
+        margin-bottom: 0 !important;
+    }
+
+    a{
+        text-decoration: none !important;
+    }
+
+    ul{
+        margin-bottom:  0 !important;
+    }
+    .dest_container{
+    margin-top: 170px;
+    margin-bottom: 50px;
+    height: 1000px;
+    width: 98%;
+    border: 2px solid rgba(158, 143, 143, 0.63);
+    border-radius: 10px;
+    background: rgb(233, 233, 233);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 0, 0, 0.2);
+    display: inherit;
+    position: relative;
+    padding: 20px;
+    overflow: hidden;
+    left: 15px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+    <div class="dest_container">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 class="display-4"> destination_name </h1>
+                <p class="text-muted"> location </p>
+                <img src="#" class="img-fluid rounded" alt=" destination_name ">
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3 shadow-sm">
+                    <h2 class="card-title">Book Your Visit</h2>
+                    <p class="lead text-success">{{ price | default:"$200" }} per person</p>
+                    <form action="#" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="date">Select Date</label>
+                            <input type="date" id="date" name="date" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="guests">Number of Guests</label>
+                            <input type="number" id="guests" name="guests" class="form-control" min="1" max="10" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">Book Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    
+
+        <div class="row mt-4">
+            <div class="col-md-8">
+                <h3>About </h3>
+                <p>{{ description | default:"A beautiful historical site with rich cultural heritage and mesmerizing architecture." }}</p>
+                <h4>Location</h4>
+                <p>{{ location | default:"Agra, India" }}</p>
+                
+                <h4>Rating</h4>
+                <p>{{ rating | default:"4.5" }} / 5</p>
+                <h4>Categories</h4>
+                <p>{{ category | default:"Historical, Cultural" }}</p>
+            </div>
+        </div>
+    
+        <div class="row mt-4">
+            <div class="col-12">
+                <h3>Gallery</h3>
+                <div class="gallery d-flex flex-wrap">
+                    <img src="#" class="img-thumbnail m-1" alt="image 1">
+                    <img src="#" class="img-thumbnail m-1" alt="image 2">
+                    <img src="#" class="img-thumbnail m-1" alt="image 3">
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+{% endblock %}

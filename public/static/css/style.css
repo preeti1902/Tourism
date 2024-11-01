@@ -494,9 +494,8 @@ body{
 
 .popular-card .card-rating {
   background: #3B79C9;
-  color: gold;
+  color: rgb(255, 255, 255);
   position: absolute;
-  border: black 1px solid;
   top: 0;
   right: 25px;
   display: flex;
