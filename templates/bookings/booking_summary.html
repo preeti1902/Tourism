@@ -1,338 +1,650 @@
-{% extends "base/base.html" %} 
-
-{% block head %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+{% extends "base/base.html" %} {% block head %}
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+  integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+  crossorigin="anonymous"
+/>
 <style>
-
-    body{
+  body {
     font-family: var(--ff-poppins);
-    }
+  }
 
-    p{
-        margin-bottom: 0 !important;
-    }
+  p {
+    margin-bottom: 0 !important;
+  }
 
-    a{
-        text-decoration: none !important;
-    }
+  a {
+    text-decoration: none !important;
+  }
 
-    ul{
-        margin-bottom:  0 !important;
-    }
+  ul {
+    margin-bottom: 0 !important;
+  }
 
-    h4{
-        font-size: 1rem !important;
-    }
+  h4 {
+    font-size: 1rem !important;
+  }
 
-    .contact-text{
-        margin-bottom:15px !important;
-    }
+  .contact-text {
+    margin-bottom: 15px !important;
+  }
 
-    .form-text {
-        margin-bottom: 20px !important;
-    }
+  .form-text {
+    margin-bottom: 20px !important;
+  }
 
-    address{
-        margin-bottom: 0 !important;
-    }
+  address {
+    margin-bottom: 0 !important;
+  }
 
-    .btn-secondary {
-        background-color: transparent !important;
-        border-color: var(--white) !important; 
-    }
+  .btn-secondary {
+    background-color: transparent !important;
+    border-color: var(--white) !important;
+  }
 
-    .btn-secondary:is(:hover, :focus) { 
-        background: hsla(0, 0%, 100%, 0.1) !important; 
-    }
+  .btn-secondary:is(:hover, :focus) {
+    background: hsla(0, 0%, 100%, 0.1) !important;
+  }
 
+  .booking-summary-container {
+    margin-top: 160px;
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
 
-    .booking-summary-container {
-        margin-top: 160px;
-        padding: 20px;
-        background-color: #f8f9fa;
-    }
-    .summary-section, .fare-summary, .cancellation-policy, .apply-coupon {
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        padding: 20px;
-    }
-    .summary-section h4, .fare-summary h4, .cancellation-policy h4, .apply-coupon h4 {
-        color: #007bff;
-    }
-    .pay-now-btn {
-        width: 100%;
-        margin-top: 20px;
-    }
+  .apply-coupon {
+    max-height: 210px;
+    overflow-y: auto;
+    margin-bottom: 0;
+  }
 
-    .full-width-container {
-        width: 100%;
-    }
+  .policy-container,
+  .traveler-details {
+    margin-bottom: 0;
+  }
 
-    .apply-btn{
-        margin-right: 0 !important;
-        background-color: #007bff;
-    }
+  .traveler-details {
+    margin-top: 0;
+  }
 
-    .apply-btn:hover{
-        background-color: #007bffa7;
-    }
+  .summary-section,
+  .fare-summary,
+  .cancellation-policy,
+  .apply-coupon {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .summary-section h4,
+  .fare-summary h4,
+  .cancellation-policy h4,
+  .apply-coupon h4 {
+    color: #007bff;
+  }
+  .pay-now-btn {
+    width: 100%;
+    margin-top: 20px;
+  }
 
-    .promo-code{
-        height: 51px !important;
-    }
+  .full-width-container {
+    width: 100%;
+  }
 
+  .apply-btn {
+    margin-right: 0 !important;
+    background-color: #007bff;
+  }
 
-    .policy-container {
+  .apply-btn:hover {
+    background-color: #007bffa7;
+  }
+
+  .promo-code {
+    height: 51px !important;
+  }
+
+  .policy-container {
     background-color: #f9f9f9;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     padding: 20px;
-    }
+  }
 
-    .policy-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 15px;
-    }
+  .policy-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
 
-    .policy-header h4 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: #333;
-    }
+  .policy-header h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+  }
 
-    .policy-status {
-        background-color: #d4f4db;
-        color: #2e7d32;
-        font-size: 0.875rem;
-        font-weight: 500;
-        padding: 4px 10px;
-        border-radius: 4px;
-    }
+  .policy-status {
+    background-color: #d4f4db;
+    color: #2e7d32;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
 
-    .policy-content {
-        display: flex;
-        gap: 20px;
-        flex-wrap: wrap;
-    }
+  .policy-content {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
 
-    .policy-section {
-        background-color: #f4f4f4;
-        padding: 15px;
-        border-radius: 6px;
-        flex: 1;
-    }
+  .policy-section {
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 6px;
+    flex: 1;
+  }
 
-    .policy-section h5 {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 10px;
-        display: flex;
-        justify-content: space-between;
-    }
+  .policy-section h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
 
-    .view-policy {
-        font-size: 0.875rem;
-        color: #2979ff;
-        text-decoration: none;
-        font-weight: 500;
-    }
+  .view-policy {
+    font-size: 0.875rem;
+    color: #2979ff;
+    text-decoration: none;
+    font-weight: 500;
+  }
 
-    .policy-detail, .policy-fee, .policy-fee-nonchangeable {
-        font-size: 0.875rem;
-        color: #666;
-        margin: 5px 0;
-    }
+  .policy-detail,
+  .policy-fee,
+  .policy-fee-nonchangeable {
+    font-size: 0.875rem;
+    color: #666;
+    margin: 5px 0;
+  }
 
-    .policy-fee {
-        font-weight: 600;
-        color: #333;
-    }
+  .policy-fee {
+    font-weight: 600;
+    color: #333;
+  }
 
-    .policy-fee-nonchangeable {
-        font-weight: 600;
-        color: #d32f2f;
-    }
+  .policy-fee-nonchangeable {
+    font-weight: 600;
+    color: #d32f2f;
+  }
 
-    .coupons{
-        width: 50px;
-        padding: 50px;
-    }
+  .coupons {
+    width: 50px;
+    padding: 50px;
+  }
 
-    .col-auto{
-        padding-right: 0px;
-    }
+  .col-auto {
+    padding-right: 0px;
+  }
 
-    .coupon-terms{
-        padding-right: 15px;
-    }
+  .coupon-terms {
+    padding-right: 15px;
+  }
 
-    .fare-summary-container {
-        background-color: #f9f9f9;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        padding: 20px;
-        font-family: Arial, sans-serif;
-    }
+  .fare-summary-container {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
 
-    .fare-summary-title {
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 15px;
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 10px;
-    }
+  .fare-summary-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
 
-    .fare-item {
-        margin: 10px 0;
-        font-size: 1rem;
-        color: #555;
-    }
+  .fare-item {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #555;
+  }
 
-    .fare-item p {
-        margin: 0;
-    }
+  .fare-item p {
+    margin: 0;
+  }
 
-    .fare-total {
-        font-size: 1.1rem;
-        color: #333;
-        margin-top: 20px;
-        padding-top: 10px;
-        border-top: 1px solid #ddd;
-    }
+  .fare-total {
+    font-size: 1.1rem;
+    color: #333;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+  }
 
-    .fare-total h5 {
-        display: flex;
-        justify-content: space-between;
-        font-weight: 600;
-        color: #1976d2; 
-    }
+  .fare-total h5 {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    color: #1976d2;
+  }
 
-    .fare-total h5 span {
-        font-weight: bold;
-        color: #333;
-    }
+  .fare-total h5 span {
+    font-weight: bold;
+    color: #333;
+  }
 
-    .paragraph{
-        margin-bottom: 1rem !important;
-    }
+  .paragraph {
+    margin-bottom: 1rem !important;
+  }
 
+  .traveler-details {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+  }
+
+  .traveler-details h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+  }
+
+  .traveler-switch {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    background-color: #e0e0e0;
+    border-radius: 25px;
+    overflow: hidden;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .traveler-switch .btn {
+    border-radius: 0;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 600;
+    color: #333;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+    flex: 1;
+    margin-right: 0 !important;
+  }
+
+  .traveler-switch .btn.active {
+    background-color: #1976d2;
+    color: #fff;
+  }
+
+  .traveler-switch .btn:not(.active):hover {
+    background-color: #d1d1d1;
+  }
+
+  .note p {
+    background-color: #e7f3ff;
+    color: #1976d2;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+
+  .traveler-card {
+    background-color: #ffffff;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+
+  .suggested-names {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .suggested-names .badge {
+    font-size: 0.85rem;
+    background-color: #1976d2;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+
+  .contact-info label {
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: #555;
+  }
+
+  .btn-warning {
+    background-color: #ff8c00;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+  }
+
+  .col {
+    padding-right: 0 !important;
+  }
+
+  .cancellation-price {
+    text-align: right;
+    right: 20px;
+  }
+
+  .policy-table {
+    margin-bottom: 5px;
+  }
 </style>
-{% endblock %}
+{% endblock %} {% block body %}
 
-{% block body %}
-  
 <div class="container-fluid full-width-container booking-summary-container">
-    <h2 class="text-primary mb-4">Review Your Booking</h2>
-    
-    <div class="row">
-        <div class="col-md-8 mb-4">
-            <div class="summary-section p-3 shadow-sm">
-                <h4>{{ booking.destination.destination_name }} - Booking Details</h4>
-                <p class="text-muted paragraph">{{ booking.destination.location }} | {{ booking.destination.category }}</p>
-                
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <p class="paragraph"><strong>Check-in:</strong> {{ booking.start_date }}</p>
-                        <p class="paragraph"><strong>Check-out:</strong> {{ booking.end_date }}</p>
-                    </div>
-                    <div>
-                        <p class="paragraph"><strong>Number of Guests:</strong> {{ booking.number_of_people }}</p>
-                        <p class="paragraph"><strong>Room Type:</strong> {{ room_type | default:"Standard" }}</p>
-                    </div>
-                </div>
-                
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                    <p class="paragraph"><strong>Total Duration:</strong> {{ booking.get_total_duration }} </p>
-                    <p class="paragraph"><strong>Rating:</strong> {{ booking.destination.rating }} / 5</p>
-                </div>                
-            </div>
+  <h2 class="text-primary mb-4">Review Your Booking</h2>
+
+  <div class="row">
+    <div class="col-md-8 mb-4">
+      <div class="summary-section p-3 shadow-sm">
+        <h4>{{ booking.destination.destination_name }} - Booking Details</h4>
+        <p class="text-muted paragraph">
+          {{ booking.destination.location }} | {{ booking.destination.category
+          }}
+        </p>
+
+        <div class="d-flex justify-content-between">
+          <div>
+            <p class="paragraph">
+              <strong>Check-in:</strong> {{ booking.start_date }}
+            </p>
+            <p class="paragraph">
+              <strong>Check-out:</strong> {{ booking.end_date }}
+            </p>
+          </div>
+          <div>
+            <p class="paragraph">
+              <strong>Number of Guests:</strong> {{ booking.number_of_people }}
+            </p>
+          </div>
         </div>
 
-        <div class="col-md-4 mb-4">
-            <div class="fare-summary-container shadow-sm">
-                <h3 class="fare-summary-title">Fare Summary</h3>
-                <div class="fare-item">
-                    <p><strong>Base Fare:</strong> ₹ {{ booking.destination.price }}</p>
-                </div>
-                <div class="fare-item">
-                    <p><strong>Taxes:</strong> ₹ {{ booking.tax_amount }}</p>
-                </div>
-                <div class="fare-total">
-                    <h5>Grand Total: <span>₹ {{ booking.total_price }}</span></h5>
-                </div>
-            </div>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <p class="paragraph">
+            <strong>Total Duration:</strong> {{ booking.get_total_duration }}
+          </p>
+          <p class="paragraph">
+            <strong>Rating:</strong> {{ booking.destination.rating }} / 5
+          </p>
         </div>
-        
+      </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-8 mb-4">
-            <div class="policy-container shadow-sm">
-                <div class="policy-header">
-                    <h4>Cancellation & Date Change Policy</h4>
-                    <span class="policy-status">Partially Refundable</span>
-                </div>
-                <div class="policy-content">
-                    <div class="policy-section">
-                        <h5>Cancellation Charges <a href="#" class="view-policy">View Policy</a></h5>
-                        <p class="policy-detail"><strong>Cancel Between (IST):</strong> Now - 6 Nov, 20:10</p>
-                        <p class="policy-fee">Fee For All Passenger(s): ₹4298</p>
-                    </div>
-                    <div class="policy-section">
-                        <h5>Reschedule Charges <a href="#" class="view-policy">View Policy</a></h5>
-                        <p class="policy-detail"><strong>Reschedule Between (IST):</strong> Now - 6 Nov, 18:10</p>
-                        <p class="policy-fee">Fee For All Passenger(s): ₹3300 + Fare difference</p>
-                        <p class="policy-fee-nonchangeable">Non Changeable</p>
-                    </div>
-                </div>
-            </div>
+    <div class="col-md-4 mb-4">
+      <div class="fare-summary-container shadow-sm">
+        <h3 class="fare-summary-title">Fare Summary</h3>
+        <div class="fare-item">
+          <p>
+            <strong>Base Fare:</strong> ₹ {{ booking.destination.price }}.00
+          </p>
         </div>
-        
-
-        
-        <div class="col-md-4 mb-4">
-            <div class="apply-coupon p-3 border rounded shadow-sm">
-                <h6 class="font-weight-bold">Apply Discount</h6>
-                <p class="text-muted small mb-2">Have a discount/ promo code to redeem</p>
-                <form action="3" method="POST" class="mb-3">
-                    {% csrf_token %}
-                    <div class="input-group">
-                        <input type="text" class="form-control form-control-sm promo-code" placeholder="Promo Code" name="promo_code">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary btn-sm apply-btn" type="submit">Apply</button>
-                        </div>
-                    </div>
-                </form>
-                <div class="available-coupons small">
-                    {% for coupon in coupons %}
-                    <div class="coupon mb-2">
-                        <div class="row align-items-center">
-                            <div class="col-auto">
-                                <input type="radio" name="coupon" id="coupon1" class="coupons">
-                            </div>
-                            <div class="col">
-                                <label for="coupon1" class="mb-0"><strong>{{coupon.coupon_code}}</strong> - {{coupon.coupon_description}}</label>
-                            </div>
-                            <div class="col-auto coupon-terms">
-                                <a href="#" class="text-muted small">View T&Cs</a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-                
-            </div>
-            <button class="btn btn-primary btn-lg mt-3 pay-now-btn">Pay Now</button>
+        <div class="fare-item">
+          <p><strong>Taxes:</strong> ₹ {{ booking.tax_amount }}0</p>
         </div>
-        
+        <div class="fare-total">
+          <h5>Grand Total: <span>₹ {{ booking.total_price }}0</span></h5>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 mb-4">
+      <div class="policy-container shadow-sm">
+        <div class="policy-header">
+          <h4>Cancellation & Date Change Policy</h4>
+          <span class="policy-status">Partially Refundable</span>
+        </div>
+        <div class="policy-content">
+          <div class="policy-section">
+            <h5>
+              Cancellation Charges
+              <a href="#" class="view-policy">View Policy</a>
+            </h5>
+            <div class="row">
+              <div class="col policy-table">
+                <strong>Cancel Between (IST)</strong>
+              </div>
+              <div class="col policy-table">
+                <strong>Fee For All Passenger(s)</strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">Now - {{booking.get_cancel_date}}</div>
+              <div class="col cancellation-price">
+                ₹{{booking.get_cancel_fee}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                {{booking.get_cancel_date}} - {{booking.start_date}}
+              </div>
+              <div class="col cancellation-price">₹{{booking.total_price}}</div>
+            </div>
+          </div>
+
+          <div class="policy-section">
+            <h5>
+              Reschedule Charges <a href="#" class="view-policy">View Policy</a>
+            </h5>
+            <div class="row">
+              <div class="col policy-table">
+                <strong>Reschedule Between (IST)</strong>
+              </div>
+              <div class="col policy-table">
+                <strong>Fee For All Passenger(s)</strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">Now - {{booking.get_cancel_date}}</div>
+              <div class="col">₹{{booking.get_reschedule_fee}} + Fare difference</div>
+            </div>
+            <div class="row">
+              <div class="col">{{booking.get_cancel_date}} - {{booking.start_date}}</div>
+              <div class="col">Non Changeable</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="apply-coupon p-3 border rounded shadow-sm">
+        <h6 class="font-weight-bold">Apply Discount</h6>
+        <p class="text-muted small mb-2">
+          Have a discount/ promo code to redeem
+        </p>
+        <form action="3" method="POST" class="mb-3">
+          {% csrf_token %}
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control form-control-sm promo-code"
+              placeholder="Promo Code"
+              name="promo_code"
+            />
+            <div class="input-group-append">
+              <button class="btn btn-primary btn-sm apply-btn" type="submit">
+                Apply
+              </button>
+            </div>
+          </div>
+        </form>
+        <div class="available-coupons small">
+          {% for coupon in coupons %}
+          <div class="coupon mb-2">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <input
+                  type="radio"
+                  name="coupon"
+                  id="coupon1"
+                  class="coupons"
+                />
+              </div>
+              <div class="col">
+                <label for="coupon1" class="mb-0"
+                  ><strong>{{coupon.coupon_code}}</strong> -
+                  {{coupon.coupon_description}}</label
+                >
+              </div>
+              <div class="col-auto coupon-terms">
+                <a href="#" class="text-muted small">View T&Cs</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <!-- <button class="btn btn-primary btn-lg mt-3 pay-now-btn">Pay Now</button> -->
+    </div>
+
+    <div class="col-md-8 mb-4">
+      <div class="traveler-details shadow-sm">
+        <h4>Traveler Details</h4>
+        <div class="traveler-switch">
+          <button id="personalBtn" class="btn active" onclick="showPersonal()">
+            Personal
+          </button>
+          <button id="businessBtn" class="btn" onclick="showBusiness()">
+            Business
+          </button>
+        </div>
+
+        <div id="business-fields" style="display: none">
+          <div class="form-group">
+            <label for="company-name">Registered Company Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="company-name"
+              placeholder="Registered Company Name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="registration-number">Registration Number</label>
+            <input
+              type="text"
+              class="form-control"
+              id="registration-number"
+              placeholder="Registration Number"
+            />
+          </div>
+        </div>
+
+        <div class="note">
+          <p>
+            <strong>NOTE:</strong> Please make sure you enter the Name as per
+            your govt. photo ID.
+          </p>
+        </div>
+
+        <div class="traveler-info">
+          <div class="traveler-card">
+            <div class="traveler-header">
+              <span><i class="fa fa-user"></i> Adult 1</span>
+            </div>
+            <div class="traveler-inputs">
+              <div class="row">
+                <div class="col-md-3">
+                  <select class="form-control">
+                    <option>GENDER</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="First & Middle Name"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Last Name"
+                  />
+                </div>
+              </div>
+              <div class="suggested-names mt-2">
+                <span class="badge badge-pill badge-primary">RAHUL MONDAL</span>
+                <span class="badge badge-pill badge-primary"
+                  >PREETI KUMARI</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="contact-info mt-3">
+            <div class="row">
+              <div class="col-md-6">
+                <label>Email Address</label>
+                <input type="email" class="form-control" placeholder="Email" />
+              </div>
+              <div class="col-md-6">
+                <label>Mobile Number</label>
+                <div class="input-group">
+                  <select class="form-control" style="max-width: 80px">
+                    <option>+91</option>
+                    <!-- Add other country codes as needed -->
+                  </select>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Mobile Number"
+                  />
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-warning btn-block mt-4">Proceed</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+  crossorigin="anonymous"
+></script>
+<script>
+  function showPersonal() {
+    document.getElementById("business-fields").style.display = "none";
+    document.getElementById("personalBtn").classList.add("active");
+    document.getElementById("businessBtn").classList.remove("active");
+  }
 
+  function showBusiness() {
+    document.getElementById("business-fields").style.display = "block";
+    document.getElementById("personalBtn").classList.remove("active");
+    document.getElementById("businessBtn").classList.add("active");
+  }
+</script>
 {% endblock %}

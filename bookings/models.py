@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from packages.models import TravelPackage
 from destinations.models import Destination
 from django.utils.text import slugify
+from datetime import timedelta
 
 class Coupon(BaseModel):
     coupon_code = models.CharField(max_length=10)
@@ -31,6 +32,15 @@ class Booking(BaseModel):
         days = duration.days
         nights = max(0, days - 1) 
         return f"{days} days and {nights} nights"
+
+    def get_cancel_date(self):
+        return self.start_date - timedelta(days=1)
+    
+    def get_cancel_fee(self):
+         return self.total_price*0.95
+
+    def get_reschedule_fee(self):
+         return self.total_price*0.70
 
     def tax_amount(self):
         tax_amount = self.destination.price * 0.18
