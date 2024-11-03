@@ -22,7 +22,6 @@
     position: relative;
   }
 
-  /* Base style for both forms */
   .form-box form {
     position: absolute;
     width: 100%;
@@ -31,7 +30,6 @@
     transition: transform 0.5s ease, opacity 0.5s ease;
   }
 
-/* Active Login Form: translate and rotate */
 .form-box .LoginForm {
     transform: translateX(0px) rotate(0deg);
   }
@@ -43,14 +41,12 @@
     transition-delay: 0.4s;
   }
 
-  /* Inactive Login Form */
   .form-box .LoginForm.inactive {
     transform: translateX(-450px) rotate(-45deg);
     opacity: 0;
     transition-delay: 0.2s;
   }
 
-  /* Active Register Form */
   .form-box .RegisterForm {
     transform: translateX(450px) rotate(60deg);
   }
@@ -62,14 +58,12 @@
     transition-delay: 0.4s;
   }
 
-  /* Inactive Register Form */
   .form-box .RegisterForm.inactive {
     transform: translateX(450px) rotate(60deg);
     opacity: 0;
     transition-delay: 0.2s;
   }
 
-  /* Style for input boxes and labels */
   .form-box .input-box {
     margin: 35px 0;
     width: 330px;
@@ -145,7 +139,6 @@
     text-decoration: underline;
   }
 
-  /* RESPONSIVE */
   @media (max-width: 365px) {
     .login_container {
       height: 420px;

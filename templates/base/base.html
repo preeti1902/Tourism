@@ -127,7 +127,7 @@
               </li>
 
               <li>
-                <a href="#destination" class="navbar-link" data-nav-link
+                <a href="{% url 'load_destinations' %}" class="navbar-link" data-nav-link
                   >destination</a
                 >
               </li>
@@ -149,9 +149,12 @@
               </li>
             </ul>
           </nav>
-
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'logout' %}" class="acc-btn btn btn-primary">Logout</a>
+          {% else %}
           <a href="{% url 'login' %}" class="acc-btn btn btn-primary">Login</a>
           <a href="{% url 'register' %}" class="acc-btn btn btn-primary">Sign Up</a>
+          {% endif %}
         </div>
       </div>
     </header>
