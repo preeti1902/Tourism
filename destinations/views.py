@@ -17,7 +17,7 @@ def get_destination(request, slug):
             to_date = request.POST.get('to-date')
             guests = int(request.POST.get('guests'))
             
-            tax_amount = destination.price * 0.18  
+            tax_amount = (destination.price * guests) * 0.18  
             total_price = (destination.price * guests) + tax_amount 
 
             booking = Booking.objects.create(

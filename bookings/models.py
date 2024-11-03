@@ -41,10 +41,14 @@ class Booking(BaseModel):
 
     def get_reschedule_fee(self):
          return self.total_price*0.70
-
-    def tax_amount(self):
-        tax_amount = self.destination.price * 0.18
-        return tax_amount
+    
+    def total_tax_amount(self):
+        total_tax_amount = (self.destination.price*self.number_of_people) * 0.18 
+        return total_tax_amount
+    
+    def total_base_price(self):
+        total_base_price = (self.destination.price*self.number_of_people)
+        return total_base_price
 
     def  __str__(self) -> str:
             return f'Booking details of user: {self.user.username} with destination: {self.destination.destination_name}'
