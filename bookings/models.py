@@ -53,3 +53,8 @@ class Booking(BaseModel):
     def  __str__(self) -> str:
             return f'Booking details of user: {self.user.username} with destination: {self.destination.destination_name}'
     
+class Travelers(BaseModel):
+    booking = models.ForeignKey(Booking, on_delete=models.CASCADE,related_name="travelers_info")
+    gender = models.TextField()
+    first_name = models.TextField()
+    last_name = models.TextField()

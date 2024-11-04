@@ -500,8 +500,9 @@
                 <p class="text-muted small mb-2">
                     Have a discount/ promo code to redeem
                 </p>
-                <form action="3" method="POST" class="mb-3">
+                <form action="#" method="POST" class="mb-3">
                     {% csrf_token %}
+                    {% include "base/alert.html" %}
                     <div class="input-group">
                         <input type="text" class="form-control form-control-sm promo-code" placeholder="Promo Code" name="promo_code" />
                         <div class="input-group-append">
@@ -514,7 +515,7 @@
                     <div class="coupon mb-2">
                         <div class="row align-items-center">
                             <div class="col-auto">
-                                <input type="radio" name="coupon" id="coupon{{ coupon.uid }}" class="coupons" data-discount="{{ coupon.discount_price }}" data-minimum-amount="{{ coupon.minimum_amount }}" />
+                                <input type="radio" name="coupon" id="coupon{{ coupon.uid }}" class="coupons" data-discount="{{ coupon.discount_price }}" data-minimum-amount="{{ coupon.minimum_amount }}"  data-code="{{ coupon.coupon_code }}" />
                             </div>
                             <div class="col">
                                 <label for="coupon{{ coupon.uid }}" class="mb-0">
@@ -537,84 +538,117 @@
         <div class="col-md-8 mb-4">
             <div class="traveler-details shadow-sm">
                 <h4>Traveler Details</h4>
-                <div class="traveler-switch">
-                    <button id="personalBtn" class="btn active" onclick="showPersonal()">
-                        Personal
-                    </button>
-                    <button id="businessBtn" class="btn" onclick="showBusiness()">
-                        Business
-                    </button>
-                </div>
-
-                <div id="business-fields" style="display: none">
-                    <div class="form-group">
-                        <label for="company-name">Registered Company Name</label>
-                        <input type="text" class="form-control" id="company-name"
-                            placeholder="Registered Company Name" />
-                    </div>
-                    <div class="form-group">
-                        <label for="registration-number">Registration Number</label>
-                        <input type="text" class="form-control" id="registration-number"
-                            placeholder="Registration Number" />
-                    </div>
-                </div>
-
                 <div class="note">
-                    <p>
-                        <strong>NOTE:</strong> Please make sure you enter the Name as per
-                        your govt. photo ID.
-                    </p>
+                    <p><strong>NOTE:</strong> Please make sure you enter the Name as per your govt. photo ID.</p>
                 </div>
-
-                <div class="traveler-info">
-                    <div class="traveler-card">
-                        <div class="traveler-header">
-                            <span><i class="fa fa-user"></i> Adult 1</span>
+                
+                <div id="traveler-container"></div>
+                
+                <div class="contact-info mt-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="Email" />
                         </div>
-                        <div class="traveler-inputs">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <select class="form-control">
-                                        <option>GENDER</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" placeholder="First & Middle Name" />
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" placeholder="Last Name" />
-                                </div>
-                            </div>
-                            <div class="suggested-names mt-2">
-                                <span class="badge badge-pill badge-primary">RAHUL MONDAL</span>
-                                <span class="badge badge-pill badge-primary">PREETI KUMARI</span>
+                        <div class="col-md-6">
+                            <label>Mobile Number</label>
+                            <div class="input-group">
+                                <select id="country-code" class="form-control" style="max-width: 80px">
+                                    <option>+91</option>
+                                    <!-- Add other country codes as needed -->
+                                </select>
+                                <input type="text" id="mobile" class="form-control" placeholder="Mobile Number" />
                             </div>
                         </div>
                     </div>
-                    <div class="contact-info mt-3">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Email Address</label>
-                                <input type="email" class="form-control" placeholder="Email" />
-                            </div>
-                            <div class="col-md-6">
-                                <label>Mobile Number</label>
-                                <div class="input-group">
-                                    <select class="form-control" style="max-width: 80px">
-                                        <option>+91</option>
-                                        <!-- Add other country codes as needed -->
-                                    </select>
-                                    <input type="text" class="form-control" placeholder="Mobile Number" />
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-warning btn-block mt-4">Proceed</button>
-                    </div>
+                    <button onclick="submitBookingData()" class="btn btn-warning btn-block mt-4">Proceed</button>
                 </div>
             </div>
         </div>
+        
+        <script>
+            const numberOfPeople = {{ booking.number_of_people|safe }};
+        
+            function generateTravelerInputs() {
+                const container = document.getElementById('traveler-container');
+                
+                for (let i = 1; i <= numberOfPeople; i++) {
+                    const travelerCard = document.createElement('div');
+                    travelerCard.className = 'traveler-card';
+                    travelerCard.innerHTML = `
+                        <div class="traveler-header" onclick="toggleTraveler(${i})">
+                            <span><i class="fa fa-user"></i> Adult ${i}</span>
+                        </div>
+                        <div class="traveler-inputs" id="traveler-inputs-${i}" style="display: ${i === 1 ? 'block' : 'none'};">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <select id="gender-${i}" class="form-control">
+                                        <option>GENDER</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" id="first-name-${i}" class="form-control" placeholder="First & Middle Name" />
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" id="last-name-${i}" class="form-control" placeholder="Last Name" />
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(travelerCard);
+                }
+            }
+            
+            function toggleTraveler(index) {
+                for (let i = 1; i <= numberOfPeople; i++) {
+                    document.getElementById(`traveler-inputs-${i}`).style.display = i === index ? 'block' : 'none';
+                }
+            }
+        
+            // Function to collect data and send it to the backend
+            function submitBookingData() {
+                const travelers = [];
+                
+                for (let i = 1; i <= numberOfPeople; i++) {
+                    travelers.push({
+                        gender: document.getElementById(`gender-${i}`).value,
+                        first_name: document.getElementById(`first-name-${i}`).value,
+                        last_name: document.getElementById(`last-name-${i}`).value,
+                    });
+                }
+                
+                const bookingData = {
+                    email: document.getElementById('email').value,
+                    mobile: document.getElementById('country-code').value + document.getElementById('mobile').value,
+                    travelers: travelers,
+                    booking_id: "{{ booking.uid }}",
+                };
+        
+                fetch("{% url 'submit_booking_data' %}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": "{{ csrf_token }}", // CSRF token for Django
+                    },
+                    body: JSON.stringify(bookingData),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Booking data submitted successfully!");
+                    } else {
+                        alert("An error occurred. Please try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+
+            }
+            
+            // Generate inputs on page load
+            generateTravelerInputs();
+        </script>            
     </div>
 </div>
 
@@ -643,6 +677,7 @@
         const discountAmountEl = document.getElementById("discount-amount");
         const grandTotalEl = document.getElementById("grand-total");
         const removeButtons = document.querySelectorAll(".remove-coupon");
+        const promoCodeInput = document.querySelector(".promo-code");
 
         let originalTotal = parseFloat(grandTotalEl.textContent.replace(/₹|\s/g, ""));
 
@@ -651,6 +686,7 @@
                 if (this.checked) {
                     let discountAmount = parseFloat(this.getAttribute("data-discount")) || 0;
                     let minimumAmount = parseFloat(this.getAttribute("data-minimum-amount")) || 0;
+                    let couponCode = this.getAttribute("data-code");
 
                     if (originalTotal >= minimumAmount) {
                         discountAmountEl.textContent = discountAmount;
@@ -658,9 +694,11 @@
 
                         let discountedTotal = originalTotal - discountAmount;
                         grandTotalEl.textContent = discountedTotal > 0 ? `₹ ${discountedTotal}` : "₹ 0";
-                        
-                        removeButtons.forEach(button => button.style.display = "none");
 
+                        // Update the promo code input field with the selected coupon code
+                        promoCodeInput.value = couponCode;
+
+                        removeButtons.forEach(button => button.style.display = "none");
                         removeButtons[index].style.display = "inline";
                     } else {
                         discountItem.style.display = "none";
@@ -677,6 +715,9 @@
                 // Deselect the radio button
                 couponRadios[index].checked = false;
 
+                // Clear the promo code input field
+                promoCodeInput.value = "";
+
                 // Hide the discount item and reset the total price
                 discountItem.style.display = "none";
                 discountAmountEl.textContent = "0";
@@ -687,5 +728,6 @@
             });
         });
     });
+
 </script>
 {% endblock %}
