@@ -52,11 +52,12 @@ def register_page(request):
             messages.warning(request, 'Email is already taken.')
             return HttpResponseRedirect(request.path_info)
 
-        print(email)
-
         user = User.objects.create_user(username=email, email=email)
-        user.set_password(password)
-        user.save()
+        if(password==confirm_password):
+            user.set_password(password)
+            user.save()
+        else:
+            messages.warning(request,'Password Does not match')
 
         messages.success(request, 'Registration successful. You can now log in.')
         return HttpResponseRedirect(request.path_info)
