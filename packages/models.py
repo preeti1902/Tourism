@@ -1,5 +1,6 @@
 from django.db import models
 from base.models import BaseModel
+from django.utils.text import slugify
 from destinations.models import Destination
 
 class Room(BaseModel):
