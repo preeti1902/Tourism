@@ -14,6 +14,7 @@ class Room(BaseModel):
 class TravelPackage(BaseModel):
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True, blank=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     duration = models.IntegerField(help_text='Duration in days')
