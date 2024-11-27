@@ -20,9 +20,18 @@ class TravelPackage(BaseModel):
     duration = models.IntegerField(help_text='Duration in days')
     itinerary = models.TextField()
     room = models.ForeignKey(Room, on_delete=models.CASCADE,null=True)
-    available_from = models.DateField()
-    available_to = models.DateField()
-    image = models.ImageField(upload_to='packages/')
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+            super(TravelPackage,self).save(*args, **kwargs)
 
     def  __str__(self) -> str:
         return f'Travel Package of {self.destination.destination_name}'
+
+class ImageGallery(BaseModel):
+    destination = models.ForeignKey(TravelPackage, on_delete=models.CASCADE, related_name="gallery")
+    image = models.ImageField(upload_to="TravelPackage_gallery")  
+
+    def __str__(self):
+        return f"Image for {self.destination.destination_name}"
