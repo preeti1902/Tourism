@@ -18,9 +18,21 @@
   padding: 10px 50px 10px 50px !important;
  }
 
- .card-text{
-  font-size:var(--fs-6) !important; 
- }
+ .card-text {
+  font-size: var(--fs-6) !important;
+  position: relative;
+}
+
+.hidden-text {
+  display: none;
+}
+
+.read-more-btn {
+  color: var(--primary-color);
+  cursor: pointer;
+  font-weight: bold;
+}
+
 </style>
 
 
@@ -40,45 +52,70 @@
         {% for destination in destinations %}
         <li>
           <div class="popular-card">
-
+      
             <figure class="card-img">
-              <img src="/media/{{destination.gallery.first.image}}" alt="San miguel, italy" loading="lazy">
+              <img src="/media/{{ destination.gallery.first.image }}" alt="Image of {{ destination.destination_name }}" loading="lazy">
             </figure>
-
+      
             <div class="card-content">
-
+      
               <div class="card-rating">
                 {% load range_tags %}
                 {% if destination.rating <= 5 %}
                   {% for i in destination.rating|floatformat:0|range_filter %}
-                      <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
                   {% endfor %}
                 {% endif %}
               </div>
-
+      
               <p class="card-subtitle">
-                <a href="{% url 'get_destination' destination.slug %}">{{destination.location}}</a>
+                <a href="{% url 'get_destination' destination.slug %}">{{ destination.location }}</a>
               </p>
-
+      
               <h3 class="h3 card-title">
-                <a href="{% url 'get_destination' destination.slug %}">{{destination.destination_name}}</a>
+                <a href="{% url 'get_destination' destination.slug %}">{{ destination.destination_name }}</a>
               </h3>
-
+      
               <p class="card-text">
-                {{destination.description}}
+                <span class="short-text">{{ destination.description|truncatechars:100 }}</span>
+                <span class="hidden-text" style="display: none;">{{ destination.description }}</span>
+                {% if destination.description|length > 100 %}
+                  <span class="read-more-btn" onclick="toggleReadMore(this)">Read More</span>
+                {% endif %}
               </p>
-
+              
+      
             </div>
-
+      
           </div>
         </li>
         {% endfor %}
-
       </ul>
 
       <a class="view-more-btn btn btn-primary">View More</a>
 
     </div>
   </section>
+
+  <script>
+    function toggleReadMore(button) {
+      const shortText = button.previousElementSibling.previousElementSibling;
+      const hiddenText = button.previousElementSibling;
+  
+      if (hiddenText.style.display === "none") {
+        // Show the full text and update button
+        hiddenText.style.display = "inline";
+        shortText.style.display = "none";
+        button.textContent = "Read Less";
+      } else {
+        // Show the truncated text and update button
+        hiddenText.style.display = "none";
+        shortText.style.display = "inline";
+        button.textContent = "Read More";
+      }
+    }
+  </script>
+  
+
 
 {% endblock %}
